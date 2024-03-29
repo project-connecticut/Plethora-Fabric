@@ -119,7 +119,7 @@ class ManipulatorBlockEntity(
 
     if (nbt.contains("type", NbtElement.INT_TYPE.toInt())) {
       val meta = nbt.getInt("type")
-      manipulatorType = ManipulatorType.values()[meta and 1]
+      manipulatorType = ManipulatorType.entries[meta and 1]
     }
 
     profile = PlayerHelpers.readProfile(nbt)

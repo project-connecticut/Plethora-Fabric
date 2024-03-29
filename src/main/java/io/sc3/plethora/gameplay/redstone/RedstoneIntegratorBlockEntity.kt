@@ -37,7 +37,7 @@ class RedstoneIntegratorBlockEntity(
     if (world.isClient || isRemoved || !world.isChunkLoaded(pos)) return
 
     var changed = false
-    Direction.values().forEach { dir ->
+    Direction.entries.forEach { dir ->
       val offset = pos.offset(dir)
       val offsetSide = dir.opposite
       val dirIdx = dir.ordinal
@@ -63,7 +63,7 @@ class RedstoneIntegratorBlockEntity(
     if (world.isClient || isRemoved || !world.isChunkLoaded(pos)) return
 
     if (outputDirty) {
-      for (dir in Direction.values()) {
+      for (dir in Direction.entries) {
         propagateRedstoneOutput(world, pos, dir)
       }
       outputDirty = false

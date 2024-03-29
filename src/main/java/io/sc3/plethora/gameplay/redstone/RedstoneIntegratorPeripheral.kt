@@ -13,7 +13,7 @@ class RedstoneIntegratorPeripheral(private val be: RedstoneIntegratorBlockEntity
 
   @LuaFunction
   fun getSides(): Array<String> =
-    Direction.values().map { it.name }.toTypedArray()
+    Direction.entries.map { it.name }.toTypedArray()
 
   @LuaFunction
   fun setOutput(args: IArguments) {

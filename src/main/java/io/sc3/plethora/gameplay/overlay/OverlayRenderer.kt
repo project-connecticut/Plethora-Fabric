@@ -30,7 +30,7 @@ object OverlayRenderer {
     var renderScanner: ItemStack? = null
     var renderSensor: ItemStack? = null
 
-    for (hand in Hand.values()) {
+    for (hand in Hand.entries) {
       val stack = player.getStackInHand(hand)
       if (stack.isEmpty) continue
 

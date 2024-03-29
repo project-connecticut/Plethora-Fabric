@@ -84,7 +84,7 @@ class EquipmentInventoryWrapper(
   }
 
   companion object {
-    private val VALUES = EquipmentSlot.values()
+    private val VALUES = EquipmentSlot.entries
     private val SLOTS = VALUES.size
 
     private fun validateSlotIndex(slot: Int) {

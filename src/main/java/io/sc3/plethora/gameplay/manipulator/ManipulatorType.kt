@@ -30,7 +30,7 @@ enum class ManipulatorType(
   );
 
   private val facingBoxes by lazy {
-    Direction.values().associateWith { dir ->
+    Direction.entries.associateWith { dir ->
       boxes.map { it.toMul16().rotate(dir).toDiv16() }
     }
   }
