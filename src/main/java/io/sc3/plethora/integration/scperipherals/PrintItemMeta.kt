@@ -13,9 +13,13 @@ class PrintItemMeta : ItemStackMetaProvider<PrintItem>(PrintItem::class.java) {
       "isButton"       to print.isButton,
       "collideWhenOn"  to print.collideWhenOn,
       "collideWhenOff" to print.collideWhenOff,
+      "lightWhenOn"    to print.lightWhenOn,
+      "lightWhenOff"   to print.lightWhenOff,
       "isBeaconBlock"  to print.isBeaconBlock,
+      "isQuiet"        to print.isQuiet,
       "redstoneLevel"  to print.redstoneLevel,
       "lightLevel"     to print.lightLevel,
+      "seatPos"        to print.seatPos,
       "shapesOff"      to print.shapesOff.toMap(),
       "shapesOn"       to print.shapesOn.toMap()
     )
