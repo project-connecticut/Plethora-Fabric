@@ -273,12 +273,10 @@ class LaserEntity : Entity, IPlayerOwnable {
           potency -= hardness
 
           // Ignite TNT blocks
-          val shooter = getShooter()
-          TntBlockInvoker.invokePrimeTnt(
-            world, position,
-            if (shooter is LivingEntity) shooter else getShooterPlayer()
-          )
-          world.removeBlock(position, false)
+          if (canBreakBlock(world, position, false, player)) {
+            TntBlockInvoker.invokePrimeTnt(world, position, player)
+            world.removeBlock(position, false)
+          }
         } else if (block === Blocks.OBSIDIAN) {
           potency -= hardness
 
@@ -287,13 +285,16 @@ class LaserEntity : Entity, IPlayerOwnable {
           val offsetState = world.getBlockState(offset)
           if (!offsetState.isAir) return
 
-          if (world is ServerWorld) {
-            // TODO: Verify this check is sufficient
-            if (!world.server.isSpawnProtected(world, offset, player)) {
-              world.playSound(null, offset, ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0f,
-                rand.nextFloat() * 0.4f + 0.8f)
-              world.setBlockState(offset, Blocks.FIRE.defaultState)
-            }
+          // Check that both the obsidian and the offset side (fire placement location) are trusted
+          if (
+            !world.server.isSpawnProtected(world, position, player)
+            && !world.server.isSpawnProtected(world, offset, player)
+            && canBreakBlock(world, position, false, player)
+            && canBreakBlock(world, offset, false, player)
+          ) {
+            world.playSound(null, offset, ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0f,
+              rand.nextFloat() * 0.4f + 0.8f)
+            world.setBlockState(offset, Blocks.FIRE.defaultState)
           }
         } else if (hardness > -1 && hardness <= potency) {
           potency -= hardness
