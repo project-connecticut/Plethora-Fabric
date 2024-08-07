@@ -1,5 +1,6 @@
 # Plethora-Fabric
 
+**  WARNING: ** This port is in development, and doesn't work!
 
 Plethora is a ComputerCraft/CC:Tweaked peripheral provider for Minecraft 1.21. Plethora-Fabric is a port of 
 [Plethora](https://github.com/SquidDev-CC/plethora) for Fabric 1.21. It aims to provide both metadata and
