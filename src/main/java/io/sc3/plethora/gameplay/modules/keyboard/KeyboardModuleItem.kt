@@ -1,7 +1,6 @@
 package io.sc3.plethora.gameplay.modules.keyboard
 
 import dan200.computercraft.shared.computer.blocks.AbstractComputerBlockEntity
-import dan200.computercraft.shared.computer.blocks.CommandComputerBlockEntity
 import dan200.computercraft.shared.network.container.ComputerContainerData
 import dan200.computercraft.shared.platform.PlatformHelper
 import io.sc3.library.ext.event
@@ -118,7 +117,8 @@ class KeyboardModuleItem(settings: Settings) : ModuleItem("keyboard", settings) 
       // BlockEntityHelpers.isUsable: the base usable check
       // AbstractComputerBlockEntity: lootable locked check, BEH.isUsable
       // CommandComputerBlockEntity:  isCommandUsable, AbstractComputerBlockEntity.isUsable
-      if (blockEntity is CommandComputerBlockEntity && !CommandComputerBlockEntity.isCommandUsable(player)) {
+      // Simplified this to .isUsable because CommandComputerBlockEntity is gone
+      if (!blockEntity.isUsable(player)) {
         return false
       }
 

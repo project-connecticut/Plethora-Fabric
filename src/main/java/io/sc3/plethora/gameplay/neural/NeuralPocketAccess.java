@@ -2,10 +2,14 @@ package io.sc3.plethora.gameplay.neural;
 
 import dan200.computercraft.api.peripheral.IPeripheral;
 import dan200.computercraft.api.pocket.IPocketAccess;
+import dan200.computercraft.api.pocket.IPocketUpgrade;
+import dan200.computercraft.api.upgrades.UpgradeData;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3d;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -23,7 +27,18 @@ public class NeuralPocketAccess implements IPocketAccess {
         this.neural = neural;
     }
 
-    @Nullable
+  @Override
+  public ServerWorld getLevel() {
+      //Do I think this works? Nah
+    return (ServerWorld) getEntity().getEntityWorld();
+  }
+
+  @Override
+  public Vec3d getPosition() {
+    return getEntity().getPos();
+  }
+
+  @Nullable
     @Override
     public Entity getEntity() {
         WeakReference<LivingEntity> ref = neural.getEntity();
@@ -46,7 +61,18 @@ public class NeuralPocketAccess implements IPocketAccess {
     @Override
     public void setLight(int colour) {}
 
-    @Nonnull
+  @org.jetbrains.annotations.Nullable
+  @Override
+  public UpgradeData<IPocketUpgrade> getUpgrade() {
+    return null;
+  }
+
+  @Override
+  public void setUpgrade(@org.jetbrains.annotations.Nullable UpgradeData<IPocketUpgrade> upgrade) {
+
+  }
+
+  @Nonnull
     @Override
     public NbtCompound getUpgradeNBTData() {
         return new NbtCompound(); // TODO: Necessary to do anything with this?
@@ -62,9 +88,10 @@ public class NeuralPocketAccess implements IPocketAccess {
 
     }
 
-    @Nonnull
     @Override
+    @SuppressWarnings({"removal"})
+    //TODO: Remove this when IPocketAccess is updated, there's nothing relying on it. Trust me bro.
     public Map<Identifier, IPeripheral> getUpgrades() {
-        return Collections.emptyMap(); // TODO: Necessary to do anything with this?
+      return Collections.emptyMap();
     }
 }

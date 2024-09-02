@@ -5,6 +5,7 @@ import dan200.computercraft.api.lua.LuaException;
 import dan200.computercraft.api.peripheral.IPeripheral;
 import dan200.computercraft.api.pocket.IPocketAccess;
 import dan200.computercraft.api.pocket.IPocketUpgrade;
+import kotlin.Suppress;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -87,10 +88,9 @@ public class PocketUpgradeModule implements IPocketUpgrade {
 		IReference<IModuleContainer> containerRef = new ConstantReference<IModuleContainer>() {
 			@Nonnull
 			@Override
+      @SuppressWarnings("ConstantConditions")
 			public IModuleContainer get() throws LuaException {
-				if (!pocket.getUpgrades().containsKey(getUpgradeID())) {
-					throw new LuaException("The upgrade is gone");
-				}
+        if (pocket.getUpgrade().upgrade() != PocketUpgradeModule.this) throw new LuaException("The upgrade is gone");
 				return container;
 			}
 

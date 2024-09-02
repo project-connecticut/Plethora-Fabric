@@ -5,7 +5,7 @@ plugins {
   val kotlinVersion: String by System.getProperties()
   kotlin("jvm").version(kotlinVersion)
 
-  id("fabric-loom") version "1.6-SNAPSHOT"
+  id("fabric-loom") version "1.7-SNAPSHOT"
   id("maven-publish")
   id("signing")
   id("com.modrinth.minotaur") version "2.+"
@@ -48,7 +48,7 @@ group = mavenGroup
 
 tasks.withType<KotlinCompile>().configureEach {
   kotlinOptions {
-    jvmTarget = "21"
+    jvmTarget = "17"
     apiVersion = "1.9"
     languageVersion = "1.9"
   }
@@ -69,7 +69,7 @@ repositories {
     }
   }
 
-  maven("https://squiddev.cc/maven") {
+  maven("https://maven.squiddev.cc") {
     content {
       includeGroup("cc.tweaked")
       includeModule("org.squiddev", "Cobalt")
