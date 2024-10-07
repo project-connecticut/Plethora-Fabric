@@ -136,6 +136,23 @@ object EntityKineticMethods {
     return FutureMethodResult.result(trackedDigEvents.containsKey(player))
   }
 
+  val STOP_SWINGING = SubtargetedModuleMethod.of(
+    "stopSwinging", KINETIC_M, LivingEntity::class.java,
+    "function():boolean -- Stops the player from swinging their main hand."
+  ) { unbaked, _ -> stopSwinging(unbaked) }
+  private fun stopSwinging(unbaked: IUnbakedContext<IModuleContainer>): FutureMethodResult {
+    val ctx = KineticMethods.getContext(unbaked)
+    val playerCtx = KineticMethods.getPlayer(ctx)
+    val player = playerCtx.player
+
+    if(!trackedDigEvents.containsKey(player)){
+      return FutureMethodResult.result(false)
+    }
+
+    stopDigging(player)
+    return FutureMethodResult.result(true)
+  }
+
   private fun startDigging(player: ServerPlayerEntity, baseHit: BlockHitResult) {
     if(trackedDigEvents.containsKey(player)){
       stopDigging(player)
