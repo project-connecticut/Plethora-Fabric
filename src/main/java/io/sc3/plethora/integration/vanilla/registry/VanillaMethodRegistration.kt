@@ -17,6 +17,8 @@ object VanillaMethodRegistration {
       method("kinetic:look", EntityKineticMethods.LOOK)
       method("kinetic:use", EntityKineticMethods.USE)
       method("kinetic:swing", EntityKineticMethods.SWING)
+      method("kinetic:isSwinging", EntityKineticMethods.IS_SWINGING)
+      method("kinetic:stopSwinging", EntityKineticMethods.STOP_SWINGING)
 
       method("introspection:consume", RangedInventoryWrapperMethods.CONSUME)
       method("introspection:drop", RangedInventoryWrapperMethods.DROP)
