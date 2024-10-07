@@ -14,7 +14,7 @@ import io.sc3.plethora.util.PlayerHelpers
 import io.sc3.plethora.util.WorldPosition
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
-import net.fabricmc.fabric.api.util.NbtType
+import net.minecraft.nbt.NbtElement
 import net.minecraft.block.Block
 import net.minecraft.block.Blocks
 import net.minecraft.block.FluidBlock
@@ -145,7 +145,7 @@ class LaserEntity : Entity, IPlayerOwnable {
     shooterPlayer = null
     shooterOwner = PlayerHelpers.readProfile(nbt)
 
-    if (nbt.contains("shooterPos", NbtType.COMPOUND)) {
+    if (nbt.contains("shooterPos", NbtElement.COMPOUND_TYPE.toInt())) {
       shooterPos = WorldPosition.deserializeNbt(nbt.getCompound("shooterPos"))
     }
 

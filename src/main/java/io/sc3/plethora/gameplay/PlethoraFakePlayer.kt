@@ -1,7 +1,7 @@
 package io.sc3.plethora.gameplay
 
 import com.mojang.authlib.GameProfile
-import io.sc3.plethora.Plethora.modId
+import io.sc3.plethora.Plethora.MOD_ID
 import io.sc3.plethora.api.Constants.FAKEPLAYER_UUID
 import io.sc3.plethora.mixin.EntityAccessor
 import io.sc3.plethora.mixin.ServerPlayerInteractionManagerAccessor
@@ -115,6 +115,6 @@ class PlethoraFakePlayer(
   }
 
   companion object {
-    val PROFILE = GameProfile(FAKEPLAYER_UUID, "[$modId]")
+    val PROFILE = GameProfile(FAKEPLAYER_UUID, "[$MOD_ID]")
   }
 }

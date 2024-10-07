@@ -176,7 +176,7 @@ public class ConverterRegistry implements IConverterRegistry {
 
 		@Override
 		public void remove() {
-			throw new UnsupportedOperationException("remove");
-		}
+      Iterator.super.remove();
+    }
 	}
 }

@@ -5,7 +5,6 @@ import dan200.computercraft.api.lua.LuaException;
 import dan200.computercraft.api.peripheral.IPeripheral;
 import dan200.computercraft.api.pocket.IPocketAccess;
 import dan200.computercraft.api.pocket.IPocketUpgrade;
-import kotlin.Suppress;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;

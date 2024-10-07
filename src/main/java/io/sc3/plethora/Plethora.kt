@@ -12,9 +12,9 @@ import io.sc3.plethora.util.config.ConfigValidator.validate
 import io.sc3.plethora.util.config.PlethoraConfig
 
 object Plethora : ModInitializer {
-  internal const val modId = "plethora"
+  internal const val MOD_ID = "plethora"
   @JvmStatic
-  internal fun ModId(value: String) = Identifier(modId, value)
+  internal fun ModId(value: String) = Identifier(MOD_ID, value)
 
   @JvmField
   val log = LoggerFactory.getLogger("Plethora")!!

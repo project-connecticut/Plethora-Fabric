@@ -9,6 +9,7 @@ import net.minecraft.block.Blocks
 import net.minecraft.block.RedstoneWireBlock
 import net.minecraft.block.entity.BlockEntityType
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.math.ChunkSectionPos
 import net.minecraft.util.math.Direction
 import net.minecraft.world.World
 import java.util.*
@@ -34,7 +35,7 @@ class RedstoneIntegratorBlockEntity(
 
   fun updateInput() {
     val world = world ?: return
-    if (world.isClient || isRemoved || !world.isChunkLoaded(pos)) return
+    if (world.isClient || isRemoved || !world.isChunkLoaded(ChunkSectionPos.getSectionCoord(pos.x), ChunkSectionPos.getSectionCoord(pos.z))) return
 
     var changed = false
     Direction.entries.forEach { dir ->
@@ -60,7 +61,7 @@ class RedstoneIntegratorBlockEntity(
 
   fun updateOnce() {
     val world = world ?: return
-    if (world.isClient || isRemoved || !world.isChunkLoaded(pos)) return
+    if (world.isClient || isRemoved || !world.isChunkLoaded(ChunkSectionPos.getSectionCoord(pos.x), ChunkSectionPos.getSectionCoord(pos.z))) return
 
     if (outputDirty) {
       for (dir in Direction.entries) {

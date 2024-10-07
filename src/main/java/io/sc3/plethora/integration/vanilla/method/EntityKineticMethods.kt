@@ -16,7 +16,6 @@ import io.sc3.plethora.util.PlayerHelpers
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
 import net.minecraft.block.Blocks
 import net.minecraft.block.FluidBlock
-import net.minecraft.client.MinecraftClient
 import net.minecraft.entity.LivingEntity
 import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket
 import net.minecraft.network.packet.s2c.play.BlockBreakingProgressS2CPacket
@@ -24,7 +23,6 @@ import net.minecraft.network.packet.s2c.play.PositionFlag
 import net.minecraft.server.MinecraftServer
 import net.minecraft.server.network.ServerPlayNetworkHandler
 import net.minecraft.server.network.ServerPlayerEntity
-import net.minecraft.text.Text
 import net.minecraft.util.Hand
 import net.minecraft.util.hit.BlockHitResult
 import net.minecraft.util.hit.EntityHitResult

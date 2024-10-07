@@ -3,7 +3,6 @@ package io.sc3.plethora.gameplay.data
 import dan200.computercraft.api.pocket.PocketUpgradeDataProvider
 import dan200.computercraft.api.pocket.PocketUpgradeSerialiser
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
-import net.minecraft.data.DataGenerator
 import net.minecraft.item.Item
 import io.sc3.plethora.api.module.IModuleHandler
 import io.sc3.plethora.gameplay.registry.Registration

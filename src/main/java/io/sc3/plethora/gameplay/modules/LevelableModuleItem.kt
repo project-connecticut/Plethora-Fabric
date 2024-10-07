@@ -2,7 +2,7 @@ package io.sc3.plethora.gameplay.modules
 
 import io.sc3.plethora.api.method.IContextBuilder
 import io.sc3.plethora.api.module.IModuleAccess
-import net.fabricmc.fabric.api.util.NbtType
+import net.minecraft.nbt.NbtElement
 import net.minecraft.client.item.TooltipContext
 import net.minecraft.item.ItemStack
 import net.minecraft.text.Text
@@ -43,7 +43,7 @@ abstract class LevelableModuleItem(itemName: String, settings: Settings) : Modul
     fun getLevel(stack: ItemStack?): Int {
       if (stack == null || stack.isEmpty) return 0
       val nbt = stack.nbt
-      return if (nbt != null && nbt.contains("level", NbtType.NUMBER)) {
+      return if (nbt != null && nbt.contains("level", NbtElement.NUMBER_TYPE.toInt())) {
         nbt.getInt("level")
       } else {
         0

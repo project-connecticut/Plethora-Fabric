@@ -48,7 +48,7 @@ abstract class BaseObject(
    * Draw this object
    *
    * @param canvas    The canvas context we are drawing within
-   * @param matrices
+   * @param ctx matrices
    * @param consumers
    */
   @Environment(EnvType.CLIENT)

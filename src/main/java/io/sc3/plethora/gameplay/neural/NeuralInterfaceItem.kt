@@ -8,7 +8,7 @@ import dan200.computercraft.shared.config.Config.computerSpaceLimit
 import dev.emi.trinkets.api.SlotReference
 import dev.emi.trinkets.api.TrinketItem
 import io.sc3.library.Tooltips.addDescLines
-import io.sc3.plethora.Plethora.modId
+import io.sc3.plethora.Plethora.MOD_ID
 import io.sc3.plethora.gameplay.neural.NeuralComputerHandler.COMPUTER_ID
 import io.sc3.plethora.gameplay.neural.NeuralComputerHandler.DIRTY
 import net.minecraft.client.item.TooltipContext
@@ -23,7 +23,7 @@ import net.minecraft.world.World
 import javax.annotation.Nonnull
 
 class NeuralInterfaceItem(settings: Settings?) : TrinketItem(settings), IComputerItem, IMedia {
-  override fun getTranslationKey() = "item.$modId.neuralInterface"
+  override fun getTranslationKey() = "item.$MOD_ID.neuralInterface"
 
   override fun appendTooltip(stack: ItemStack, world: World?, tooltip: MutableList<Text>, context: TooltipContext) {
     super.appendTooltip(stack, world, tooltip, context)

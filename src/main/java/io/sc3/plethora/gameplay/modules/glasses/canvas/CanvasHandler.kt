@@ -16,8 +16,8 @@ import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
-import net.fabricmc.fabric.api.util.NbtType.COMPOUND
-import net.fabricmc.fabric.api.util.NbtType.NUMBER
+import net.minecraft.nbt.NbtElement.COMPOUND_TYPE
+import net.minecraft.nbt.NbtElement.NUMBER_TYPE
 import net.minecraft.client.MinecraftClient
 import net.minecraft.client.gui.DrawContext
 import net.minecraft.entity.player.PlayerEntity
@@ -95,13 +95,13 @@ object CanvasHandler {
     val stack = optStack.get()
 
     val nbt = stack.nbt
-    if (nbt == null || !nbt.contains(MODULE_DATA, COMPOUND)) return null
+    if (nbt == null || !nbt.contains(MODULE_DATA, COMPOUND_TYPE.toInt())) return null
 
     val modules = nbt.getCompound(MODULE_DATA)
-    if (!modules.contains(GLASSES_S, COMPOUND)) return null
+    if (!modules.contains(GLASSES_S, COMPOUND_TYPE.toInt())) return null
 
     val data = modules.getCompound(GLASSES_S)
-    if (!data.contains("id", NUMBER)) return null
+    if (!data.contains("id", NUMBER_TYPE.toInt())) return null
 
     val id = data.getInt("id")
     return getClient(id)

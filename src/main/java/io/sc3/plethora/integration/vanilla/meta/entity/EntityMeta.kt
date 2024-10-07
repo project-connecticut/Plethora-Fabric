@@ -16,9 +16,9 @@ object EntityMeta : BaseMetaProvider<Entity>(
 ) {
   private val allAxes = EnumSet.allOf(Direction.Axis::class.java)
 
-  override fun getMeta(ctx: IPartialContext<Entity>): Map<String, *> {
-    val entity = ctx.target
-    val location = ctx.getContext(ORIGIN, IWorldLocation::class.java)
+  override fun getMeta(context: IPartialContext<Entity>): Map<String, *> {
+    val entity = context.target
+    val location = context.getContext(ORIGIN, IWorldLocation::class.java)
 
     val result = getBasicProperties(entity, location)
 

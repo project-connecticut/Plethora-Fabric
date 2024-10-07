@@ -1,6 +1,6 @@
 package io.sc3.plethora.gameplay.registry
 
-import io.sc3.plethora.Plethora.modId
+import io.sc3.plethora.Plethora.MOD_ID
 import io.sc3.plethora.api.method.IMethod
 import io.sc3.plethora.api.method.IMethodCollection
 import io.sc3.plethora.api.method.IMethodRegistry
@@ -78,13 +78,13 @@ internal object PlethoraMethodRegistration {
   }
 
   private fun <T> IMethodRegistry.method(name: String, target: Class<T>, method: IMethod<T>) {
-    registerMethod(modId, name, target, method)
+    registerMethod(MOD_ID, name, target, method)
   }
 
   @SafeVarargs
   private fun <T> IMethodRegistry.methods(target: Class<T>, vararg methods: IMethod<T>) {
     for (method in methods) {
-      registerMethod(modId, method.name, target, method)
+      registerMethod(MOD_ID, method.name, target, method)
     }
   }
 

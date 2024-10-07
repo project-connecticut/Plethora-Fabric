@@ -4,7 +4,7 @@ import net.minecraft.util.Identifier;
 import io.sc3.plethora.Plethora;
 
 public class PlethoraModules {
-    private static final String MOD_ID = Plethora.modId;
+    private static final String MOD_ID = Plethora.MOD_ID;
 
     public static final String INTROSPECTION = "introspection";
     public static final String LASER         = "laser";

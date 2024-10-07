@@ -1,7 +1,6 @@
 package io.sc3.plethora.core;
 
 import com.mojang.authlib.GameProfile;
-import dan200.computercraft.api.client.TransformedModel;
 import dan200.computercraft.api.lua.LuaException;
 import dan200.computercraft.api.peripheral.IPeripheral;
 import dan200.computercraft.api.turtle.*;

@@ -3,7 +3,6 @@ package io.sc3.plethora.gameplay.neural;
 import dan200.computercraft.api.lua.LuaException;
 import dan200.computercraft.api.peripheral.IDynamicPeripheral;
 import dan200.computercraft.api.peripheral.IPeripheral;
-import dan200.computercraft.api.pocket.IPocketUpgrade;
 import dan200.computercraft.impl.PocketUpgrades;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketsApi;

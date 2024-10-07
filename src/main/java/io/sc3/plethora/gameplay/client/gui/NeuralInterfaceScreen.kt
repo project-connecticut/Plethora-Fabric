@@ -66,9 +66,9 @@ class NeuralInterfaceScreen(
 
     // Peripheral direction overlay
     if (peripherals) {
-      ctx.drawTexture(tex, x + NEURAL_START_X + 1 + S, y + START_Y + 1, 32, ICON_Y, 16, 16); // Top
-      ctx.drawTexture(tex, x + NEURAL_START_X + 1, y + START_Y + 1 + S, 50, ICON_Y, 16 * 3, 16); // Middle 3
-      ctx.drawTexture(tex, x + NEURAL_START_X + 1 + S, y + START_Y + 1 + 2 * S, 104, ICON_Y, 16, 16); // Bottom
+      ctx.drawTexture(tex, x + NEURAL_START_X + 1 + S, y + START_Y + 1, 32, ICON_Y, 16, 16) // Top
+      ctx.drawTexture(tex, x + NEURAL_START_X + 1, y + START_Y + 1 + S, 50, ICON_Y, 16 * 3, 16) // Middle 3
+      ctx.drawTexture(tex, x + NEURAL_START_X + 1 + S, y + START_Y + 1 + 2 * S, 104, ICON_Y, 16, 16) // Bottom
     }
 
     val spriteRenderer = SpriteRenderer.createForGui(ctx, RenderTypes.GUI_SPRITES)

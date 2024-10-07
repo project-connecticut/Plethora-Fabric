@@ -61,8 +61,8 @@ public abstract class BasicMethod<T> implements IMethod<T> {
 
 	@Override
 	public boolean canApply(@Nonnull IPartialContext<T> context) {
-		return true;
-	}
+    return IMethod.super.canApply(context);
+  }
 
 	@Override
 	public final int getPriority() {

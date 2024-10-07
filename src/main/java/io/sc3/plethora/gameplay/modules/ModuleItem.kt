@@ -3,7 +3,7 @@ package io.sc3.plethora.gameplay.modules
 import dan200.computercraft.api.client.TransformedModel
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.AffineTransformation
-import io.sc3.plethora.Plethora.modId
+import io.sc3.plethora.Plethora.MOD_ID
 import io.sc3.plethora.api.method.IContextBuilder
 import io.sc3.plethora.api.module.IModuleAccess
 import io.sc3.plethora.api.module.IModuleHandler
@@ -15,7 +15,7 @@ abstract class ModuleItem(
   itemName: String,
   settings: Settings
 ) : BaseItem(itemName, settings), IModuleHandler {
-  override fun getTranslationKey() = "item.$modId.module.module_$itemName"
+  override fun getTranslationKey() = "item.$MOD_ID.module.module_$itemName"
 
   // TODO: isBlacklisted
   override fun getModel(): TransformedModel =

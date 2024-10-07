@@ -126,6 +126,6 @@ class NeuralInterfaceScreenHandler private constructor(
 
     @JvmStatic
     fun of(syncId: Int, playerInv: PlayerInventory, data: ComputerContainerData) =
-      NeuralInterfaceScreenHandler(syncId, playerInv, SimpleInventory(NeuralHelpers.INV_SIZE), { true }, null, data)
+      NeuralInterfaceScreenHandler(syncId, playerInv, SimpleInventory(INV_SIZE), { true }, null, data)
   }
 }

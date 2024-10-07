@@ -23,7 +23,6 @@ import io.sc3.plethora.gameplay.modules.introspection.IntrospectionModuleItem;
 import io.sc3.plethora.gameplay.modules.keyboard.KeyboardKeyPacket;
 import io.sc3.plethora.gameplay.modules.keyboard.KeyboardModuleItem;
 import io.sc3.plethora.gameplay.modules.keyboard.ServerKeyListener;
-import io.sc3.plethora.gameplay.modules.kinetic.KineticMethods;
 import io.sc3.plethora.gameplay.modules.kinetic.KineticModuleItem;
 import io.sc3.plethora.gameplay.modules.kinetic.KineticTurtleUpgrade;
 import io.sc3.plethora.gameplay.modules.laser.LaserEntity;
@@ -76,7 +75,7 @@ import java.util.function.Function;
 
 import static io.sc3.library.networking.ScLibraryPacketKt.registerServerReceiver;
 import static io.sc3.plethora.Plethora.log;
-import static io.sc3.plethora.Plethora.modId;
+import static io.sc3.plethora.Plethora.MOD_ID;
 import static io.sc3.plethora.gameplay.registry.Registration.ModItems.PLETHORA_ITEM_GROUP;
 import static net.minecraft.registry.Registries.*;
 
@@ -85,7 +84,7 @@ public final class Registration {
 
   public static final EntityType<LaserEntity> LASER_ENTITY = Registry.register(
     Registries.ENTITY_TYPE,
-    new Identifier(Plethora.modId, "laser"),
+    new Identifier(Plethora.MOD_ID, "laser"),
     FabricEntityTypeBuilder.<LaserEntity>create(SpawnGroup.MISC, LaserEntity::new)
       .dimensions(EntityDimensions.fixed(0.25F, 0.25F))
       .trackRangeBlocks(4).trackedUpdateRate(10)
@@ -95,7 +94,7 @@ public final class Registration {
 
   public static void init() {
     Registry.register(Registries.ITEM_GROUP, PLETHORA_ITEM_GROUP, FabricItemGroup.builder()
-      .displayName(Text.translatable("itemGroup." + modId + ".main"))
+      .displayName(Text.translatable("itemGroup." + MOD_ID + ".main"))
       .icon(() -> new ItemStack(ModItems.NEURAL_CONNECTOR))
       .entries((enabledFeatures, entries) -> items.forEach(entries::add))
       .build());
@@ -112,9 +111,9 @@ public final class Registration {
     };
     log.trace("oh no:" + (o[0] != null ? "yes" : "NullPointerException")); // lig was here
 
-    Registry.register(Registries.SCREEN_HANDLER, new Identifier(Plethora.modId, "neural_interface"),
+    Registry.register(Registries.SCREEN_HANDLER, new Identifier(Plethora.MOD_ID, "neural_interface"),
       ModScreens.NEURAL_INTERFACE_HANDLER_TYPE);
-    Registry.register(Registries.SCREEN_HANDLER, new Identifier(Plethora.modId, "keyboard"),
+    Registry.register(Registries.SCREEN_HANDLER, new Identifier(Plethora.MOD_ID, "keyboard"),
       ModScreens.KEYBOARD_HANDLER_TYPE);
 
     PlethoraEvents.REGISTER.register(api -> {
@@ -185,7 +184,7 @@ public final class Registration {
     public static final BlockItem REDSTONE_INTEGRATOR = ofBlock(ModBlocks.REDSTONE_INTEGRATOR, BlockItem::new);
 
     public static final RegistryKey<ItemGroup> PLETHORA_ITEM_GROUP =
-      RegistryKey.of(RegistryKeys.ITEM_GROUP, new Identifier(Plethora.modId, "main"));
+      RegistryKey.of(RegistryKeys.ITEM_GROUP, new Identifier(Plethora.MOD_ID, "main"));
 
     private static Item.Settings properties() {
       return new Item.Settings();
@@ -198,7 +197,7 @@ public final class Registration {
     }
 
     private static <T extends Item> T register(String id, T item) {
-      var i = Registry.register(ITEM, new Identifier(Plethora.modId, id), item);
+      var i = Registry.register(ITEM, new Identifier(Plethora.MOD_ID, id), item);
       items.add(i);
       return i;
     }
@@ -217,7 +216,7 @@ public final class Registration {
       new RedstoneIntegratorBlock(properties()));
 
     private static <T extends Block> T register(String id, T value) {
-      return Registry.register(BLOCK, new Identifier(Plethora.modId, id), value);
+      return Registry.register(BLOCK, new Identifier(Plethora.MOD_ID, id), value);
     }
 
     private static Block.Settings properties() {
@@ -245,7 +244,7 @@ public final class Registration {
     private static <T extends BlockEntity> BlockEntityType<T> ofBlock(Block block, String id,
                                       BiFunction<BlockPos, BlockState, T> factory) {
       BlockEntityType<T> blockEntityType = FabricBlockEntityTypeBuilder.create(factory::apply, block).build();
-      return Registry.register(BLOCK_ENTITY_TYPE, new Identifier(Plethora.modId, id), blockEntityType);
+      return Registry.register(BLOCK_ENTITY_TYPE, new Identifier(Plethora.MOD_ID, id), blockEntityType);
     }
   }
 
@@ -268,7 +267,7 @@ public final class Registration {
     }
 
     public static final TurtleUpgradeSerialiser<TurtleUpgradeModule> MODULE = register(
-      new Identifier(Plethora.modId, "module"),
+      new Identifier(Plethora.MOD_ID, "module"),
       TurtleUpgradeSerialiser.simpleWithCustomItem((id, item) ->
         new TurtleUpgradeModule(item, (IModuleHandler) item.getItem(), item.getTranslationKey() + ".adjective"))
     );
@@ -290,7 +289,7 @@ public final class Registration {
     }
 
     public static final PocketUpgradeSerialiser<PocketUpgradeModule> MODULE = register(
-      new Identifier(Plethora.modId, "module"),
+      new Identifier(Plethora.MOD_ID, "module"),
       PocketUpgradeSerialiser.simpleWithCustomItem((id, item) -> {
         log.info("Registering pocket module {} with crafting item {}", id, item);
         if (item.getItem() instanceof IModuleHandler handler) {
@@ -306,6 +305,6 @@ public final class Registration {
 
   public static final class ModDamageSources {
     public static final RegistryKey<DamageType> LASER = RegistryKey.of(RegistryKeys.DAMAGE_TYPE,
-      new Identifier(Plethora.modId, "laser"));
+      new Identifier(Plethora.MOD_ID, "laser"));
   }
 }

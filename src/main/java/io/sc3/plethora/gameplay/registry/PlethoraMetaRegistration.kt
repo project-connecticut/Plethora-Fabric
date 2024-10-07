@@ -1,6 +1,6 @@
 package io.sc3.plethora.gameplay.registry
 
-import io.sc3.plethora.Plethora.modId
+import io.sc3.plethora.Plethora.MOD_ID
 import io.sc3.plethora.api.meta.IMetaProvider
 import io.sc3.plethora.api.meta.IMetaRegistry
 import io.sc3.plethora.gameplay.modules.BindableModuleItemMeta
@@ -16,6 +16,6 @@ object PlethoraMetaRegistration {
   }
 
   private inline fun <reified T> IMetaRegistry.provider(name: String, provider: IMetaProvider<T>) {
-    registerMetaProvider("$modId:$name", modId, T::class.java, provider)
+    registerMetaProvider("$MOD_ID:$name", MOD_ID, T::class.java, provider)
   }
 }
