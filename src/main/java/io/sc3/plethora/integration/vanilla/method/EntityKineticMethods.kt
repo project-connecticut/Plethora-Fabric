@@ -111,7 +111,12 @@ object EntityKineticMethods {
             FutureMethodResult.result(result.left, result.right)
           } else {
             startDigging(player, hit)
-            FutureMethodResult.result(true, "Block")
+
+            if(player.world.canPlayerModifyAt(player, baseHit.blockPos)){
+              FutureMethodResult.result(true, "Block")
+            }else {
+              FutureMethodResult.result(false, "No permission to break here")
+            }
           }
         }
         else -> {
