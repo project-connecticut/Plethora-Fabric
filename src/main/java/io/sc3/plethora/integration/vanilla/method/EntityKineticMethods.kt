@@ -110,9 +110,8 @@ object EntityKineticMethods {
             val result = fakePlayer.dig(hit.blockPos, hit.side)
             FutureMethodResult.result(result.left, result.right)
           } else {
-            startDigging(player, hit)
-
             if(player.world.canPlayerModifyAt(player, baseHit.blockPos)){
+              startDigging(player, hit)
               FutureMethodResult.result(true, "Block")
             }else {
               FutureMethodResult.result(false, "No permission to break here")
