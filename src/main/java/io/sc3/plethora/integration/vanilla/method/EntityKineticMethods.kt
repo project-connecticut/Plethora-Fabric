@@ -122,11 +122,11 @@ object EntityKineticMethods {
     }
   }
 
-  val SWINGING = SubtargetedModuleMethod.of(
-    "swinging", KINETIC_M, LivingEntity::class.java,
+  val IS_SWINGING = SubtargetedModuleMethod.of(
+    "isSwinging", KINETIC_M, LivingEntity::class.java,
     "function():boolean -- Returns true if the player is currently swinging their main hand."
-  ) { unbaked, _ -> swinging(unbaked) }
-  private fun swinging(unbaked: IUnbakedContext<IModuleContainer>): FutureMethodResult {
+  ) { unbaked, _ -> isSwinging(unbaked) }
+  private fun isSwinging(unbaked: IUnbakedContext<IModuleContainer>): FutureMethodResult {
     val ctx = KineticMethods.getContext(unbaked)
     val playerCtx = KineticMethods.getPlayer(ctx)
     val player = playerCtx.player
