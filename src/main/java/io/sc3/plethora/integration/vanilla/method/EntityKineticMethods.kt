@@ -9,19 +9,33 @@ import io.sc3.plethora.api.module.SubtargetedModuleMethod
 import io.sc3.plethora.gameplay.modules.kinetic.KineticMethods
 import io.sc3.plethora.gameplay.registry.PlethoraModules.KINETIC_M
 import io.sc3.plethora.integration.PlayerInteractionHelpers
+import io.sc3.plethora.mixin.ServerPlayerInteractionManagerAccessor
+import io.sc3.plethora.mixin.ServerPlayerInteractionManagerInvoker
 import io.sc3.plethora.util.Helpers.normaliseAngle
 import io.sc3.plethora.util.PlayerHelpers
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
+import net.minecraft.block.Blocks
+import net.minecraft.block.FluidBlock
+import net.minecraft.client.MinecraftClient
 import net.minecraft.entity.LivingEntity
+import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket
+import net.minecraft.network.packet.s2c.play.BlockBreakingProgressS2CPacket
 import net.minecraft.network.packet.s2c.play.PositionFlag
+import net.minecraft.server.MinecraftServer
 import net.minecraft.server.network.ServerPlayerEntity
+import net.minecraft.text.Text
+import net.minecraft.util.Hand
 import net.minecraft.util.hit.BlockHitResult
 import net.minecraft.util.hit.EntityHitResult
 import net.minecraft.util.hit.HitResult
+import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
+import net.minecraft.world.World
 import java.util.*
 
 object EntityKineticMethods {
   private val LOOK_FLAGS = EnumSet.of(PositionFlag.X, PositionFlag.Y, PositionFlag.Z)
+  private val trackedDigEvents = mutableMapOf<ServerPlayerEntity, BlockPos>()
 
   val LOOK = SubtargetedModuleMethod.of(
     "look", KINETIC_M, LivingEntity::class.java,
@@ -94,14 +108,119 @@ object EntityKineticMethods {
             val result = fakePlayer.dig(hit.blockPos, hit.side)
             FutureMethodResult.result(result.left, result.right)
           } else {
-            FutureMethodResult.result(false, "Nothing to do here")
+            startDigging(player, hit)
+            FutureMethodResult.result(true, "Block")
           }
         }
-        else -> FutureMethodResult.result(false, "Nothing to do here")
+        else -> {
+          FutureMethodResult.result(false, "Nothing to do here")
+        }
       }
     } finally {
       player.clearActiveItem()
       fakePlayer?.updateCooldown()
     }
+  }
+
+  val SWINGING = SubtargetedModuleMethod.of(
+    "swinging", KINETIC_M, LivingEntity::class.java,
+    "function():boolean -- Returns true if the player is currently swinging their main hand."
+  ) { unbaked, _ -> swinging(unbaked) }
+  private fun swinging(unbaked: IUnbakedContext<IModuleContainer>): FutureMethodResult {
+    val ctx = KineticMethods.getContext(unbaked)
+    val playerCtx = KineticMethods.getPlayer(ctx)
+    val player = playerCtx.player
+
+    return FutureMethodResult.result(trackedDigEvents.containsKey(player))
+  }
+
+  private fun startDigging(player: ServerPlayerEntity, baseHit: BlockHitResult) {
+    if(trackedDigEvents.containsKey(player)){
+      stopDigging(player)
+    }
+
+    player.interactionManager.processBlockBreakingAction(
+      baseHit.blockPos,
+      PlayerActionC2SPacket.Action.START_DESTROY_BLOCK,
+      baseHit.side,
+      player.world.topY,
+      0
+    )
+
+    trackedDigEvents[player] = baseHit.blockPos
+  }
+
+  private fun stopDigging(player: ServerPlayerEntity) {
+    if(trackedDigEvents.containsKey(player)){
+      setBlockBreakingInfo(player.server, player.world, player.id, trackedDigEvents[player]!!, -1)
+      trackedDigEvents.remove(player)
+    }
+  }
+
+  private fun setBlockBreakingInfo(server: MinecraftServer, world: World, entityId: Int, pos: BlockPos, progress: Int) {
+    val var4: Iterator<*> = server.playerManager.playerList.iterator()
+    while (var4.hasNext()) {
+      val serverPlayerEntity = var4.next() as ServerPlayerEntity?
+      if (serverPlayerEntity != null && serverPlayerEntity.world === world) {
+        val d = pos.x.toDouble() - serverPlayerEntity.x
+        val e = pos.y.toDouble() - serverPlayerEntity.y
+        val f = pos.z.toDouble() - serverPlayerEntity.z
+        if (d * d + e * e + f * f < 1024.0) {
+          serverPlayerEntity.networkHandler.sendPacket(BlockBreakingProgressS2CPacket(entityId, pos, progress))
+        }
+      }
+    }
+  }
+
+  @JvmStatic
+  fun initKineticDigTracker(){
+    ServerTickEvents.END_SERVER_TICK.register(ServerTickEvents.EndTick { server ->
+      for (event in trackedDigEvents) {
+        val player = event.key
+        val pos = event.value
+
+        if(player.isDisconnected){
+          trackedDigEvents.remove(player)
+          continue
+        }
+
+        val state = player.world.getBlockState(pos)
+
+        //Check if block is still there
+        if(state.isAir
+          || state.block is FluidBlock
+          || state.block === Blocks.BEDROCK
+          || state.getHardness(player.world, pos) <= -1)
+        {
+          stopDigging(player)
+          continue
+        }
+
+        //Check if player is still looking at the block
+        val hit = PlayerHelpers.raycast(player)
+        if(hit.type != HitResult.Type.BLOCK || (hit as BlockHitResult).blockPos != pos){
+          stopDigging(player)
+          continue
+        }
+
+        val interactionManager = player.interactionManager as ServerPlayerInteractionManagerAccessor
+        val tickStartedMining = interactionManager.startMiningTime
+        val currentTick = interactionManager.tickCounter
+
+        if((currentTick - tickStartedMining) % 10 == 0){
+          player.swingHand(Hand.MAIN_HAND, true)
+        }
+
+        val progress = (interactionManager as ServerPlayerInteractionManagerInvoker).invokeContinueMining(player.world.getBlockState(pos), pos, tickStartedMining)
+
+        //Call custom setBlockBreakingInfo so block update is actually sent to triggering player
+        setBlockBreakingInfo(server, player.world, player.id, pos, (progress * 10).toInt())
+
+        if(progress >= 1){
+          player.interactionManager.tryBreakBlock(pos)
+          trackedDigEvents.remove(player)
+        }
+      }
+    })
   }
 }

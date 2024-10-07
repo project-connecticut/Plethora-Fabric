@@ -11,6 +11,13 @@ public interface ServerPlayerInteractionManagerAccessor {
 
     @Accessor
     int getBlockBreakingProgress();
+
     @Accessor
     void setBlockBreakingProgress(int progress);
+
+    @Accessor
+    int getStartMiningTime();
+
+    @Accessor
+    int getTickCounter();
 }

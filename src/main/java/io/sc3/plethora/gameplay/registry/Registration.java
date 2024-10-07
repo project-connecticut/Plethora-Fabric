@@ -23,6 +23,7 @@ import io.sc3.plethora.gameplay.modules.introspection.IntrospectionModuleItem;
 import io.sc3.plethora.gameplay.modules.keyboard.KeyboardKeyPacket;
 import io.sc3.plethora.gameplay.modules.keyboard.KeyboardModuleItem;
 import io.sc3.plethora.gameplay.modules.keyboard.ServerKeyListener;
+import io.sc3.plethora.gameplay.modules.kinetic.KineticMethods;
 import io.sc3.plethora.gameplay.modules.kinetic.KineticModuleItem;
 import io.sc3.plethora.gameplay.modules.kinetic.KineticTurtleUpgrade;
 import io.sc3.plethora.gameplay.modules.laser.LaserEntity;
@@ -39,6 +40,7 @@ import io.sc3.plethora.gameplay.redstone.RedstoneIntegratorTicker;
 import io.sc3.plethora.integration.InternalIntegration;
 import io.sc3.plethora.integration.computercraft.registry.ComputerCraftMetaRegistration;
 import io.sc3.plethora.integration.computercraft.registry.ComputerCraftMethodRegistration;
+import io.sc3.plethora.integration.vanilla.method.EntityKineticMethods;
 import io.sc3.plethora.integration.vanilla.registry.VanillaConverterRegistration;
 import io.sc3.plethora.integration.vanilla.registry.VanillaMetaRegistration;
 import io.sc3.plethora.integration.vanilla.registry.VanillaMethodRegistration;
@@ -155,6 +157,7 @@ public final class Registration {
     CanvasHandler.registerServerEvents();
     ServerKeyListener.registerEvents();
     LaserEntity.initLaserTracker();
+    EntityKineticMethods.initKineticDigTracker();
 
     RecipeHandlers.registerSerializers();
   }
