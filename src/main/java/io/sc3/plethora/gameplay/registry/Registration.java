@@ -33,9 +33,6 @@ import io.sc3.plethora.gameplay.neural.NeuralConnectorItem;
 import io.sc3.plethora.gameplay.neural.NeuralInterfaceItem;
 import io.sc3.plethora.gameplay.neural.NeuralInterfaceScreenFactory;
 import io.sc3.plethora.gameplay.neural.NeuralInterfaceScreenHandler;
-import io.sc3.plethora.gameplay.redstone.RedstoneIntegratorBlock;
-import io.sc3.plethora.gameplay.redstone.RedstoneIntegratorBlockEntity;
-import io.sc3.plethora.gameplay.redstone.RedstoneIntegratorTicker;
 import io.sc3.plethora.integration.InternalIntegration;
 import io.sc3.plethora.integration.computercraft.registry.ComputerCraftMetaRegistration;
 import io.sc3.plethora.integration.computercraft.registry.ComputerCraftMethodRegistration;
@@ -139,7 +136,6 @@ public final class Registration {
       // Manipulator peripheral
       PeripheralLookup.get().registerForBlockEntity(ManipulatorPeripheral::getPeripheral, ModBlockEntities.MANIPULATOR_MARK_1);
       PeripheralLookup.get().registerForBlockEntity(ManipulatorPeripheral::getPeripheral, ModBlockEntities.MANIPULATOR_MARK_2);
-      PeripheralLookup.get().registerForBlockEntity((b, s) -> b.getPeripheral(), ModBlockEntities.REDSTONE_INTEGRATOR);
     });
 
     ServerBlockEntityEvents.BLOCK_ENTITY_LOAD.register((blockEntity, world) -> {
@@ -152,7 +148,6 @@ public final class Registration {
 
     registerServerReceiver(KeyboardKeyPacket.id, KeyboardKeyPacket::fromBytes);
 
-    RedstoneIntegratorTicker.registerEvents();
     CanvasHandler.registerServerEvents();
     ServerKeyListener.registerEvents();
     LaserEntity.initLaserTracker();
@@ -181,7 +176,6 @@ public final class Registration {
 
     public static final BlockItem MANIPULATOR_MARK_1 = ofBlock(ModBlocks.MANIPULATOR_MARK_1, BlockItem::new);
     public static final BlockItem MANIPULATOR_MARK_2 = ofBlock(ModBlocks.MANIPULATOR_MARK_2, BlockItem::new);
-    public static final BlockItem REDSTONE_INTEGRATOR = ofBlock(ModBlocks.REDSTONE_INTEGRATOR, BlockItem::new);
 
     public static final RegistryKey<ItemGroup> PLETHORA_ITEM_GROUP =
       RegistryKey.of(RegistryKeys.ITEM_GROUP, new Identifier(Plethora.MOD_ID, "main"));
@@ -212,8 +206,6 @@ public final class Registration {
       new ManipulatorBlock(properties().nonOpaque(), ManipulatorType.MARK_1));
     public static final Block MANIPULATOR_MARK_2 = register("manipulator_mark_2",
       new ManipulatorBlock(properties().nonOpaque(), ManipulatorType.MARK_2));
-    public static final Block REDSTONE_INTEGRATOR = register("redstone_integrator",
-      new RedstoneIntegratorBlock(properties()));
 
     private static <T extends Block> T register(String id, T value) {
       return Registry.register(BLOCK, new Identifier(Plethora.MOD_ID, id), value);
@@ -237,9 +229,6 @@ public final class Registration {
       ModBlocks.MANIPULATOR_MARK_2, "manipulator_mark_2", (blockPos, blockState) ->
         new ManipulatorBlockEntity(ModBlockEntities.MANIPULATOR_MARK_2, blockPos, blockState,
           ManipulatorType.MARK_2));
-    public static final BlockEntityType<RedstoneIntegratorBlockEntity> REDSTONE_INTEGRATOR = ofBlock(
-      ModBlocks.REDSTONE_INTEGRATOR, "redstone_integrator", (blockPos, blockState) ->
-        new RedstoneIntegratorBlockEntity(ModBlockEntities.REDSTONE_INTEGRATOR, blockPos, blockState));
 
     private static <T extends BlockEntity> BlockEntityType<T> ofBlock(Block block, String id,
                                       BiFunction<BlockPos, BlockState, T> factory) {

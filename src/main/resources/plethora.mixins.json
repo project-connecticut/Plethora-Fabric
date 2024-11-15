@@ -15,7 +15,8 @@
     "ServerWorldMixin",
     "SimpleInventoryAccessor",
     "TntBlockInvoker",
-    "computercraft.AbstractComputerBlockEntityAccessor"
+    "computercraft.AbstractComputerBlockEntityAccessor",
+    "computercraft.RedstoneRelayMixin"
   ],
   "client": [
     "client.GameRendererAccessor",

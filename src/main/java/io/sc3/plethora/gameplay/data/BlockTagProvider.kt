@@ -20,7 +20,6 @@ class BlockTagProvider(
     getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE).add(
       ModBlocks.MANIPULATOR_MARK_1,
       ModBlocks.MANIPULATOR_MARK_2,
-      ModBlocks.REDSTONE_INTEGRATOR,
     )
 
     getOrCreateTagBuilder(BLOCK_SCANNER_ORES)

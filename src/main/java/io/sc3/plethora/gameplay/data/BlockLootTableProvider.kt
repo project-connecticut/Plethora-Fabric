@@ -8,6 +8,5 @@ class BlockLootTableProvider(out: FabricDataOutput) : FabricBlockLootTableProvid
   override fun generate() {
     addDrop(ModBlocks.MANIPULATOR_MARK_1)
     addDrop(ModBlocks.MANIPULATOR_MARK_2)
-    addDrop(ModBlocks.REDSTONE_INTEGRATOR)
   }
 }

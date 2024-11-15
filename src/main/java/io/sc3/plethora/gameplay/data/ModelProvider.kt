@@ -15,8 +15,6 @@ import java.util.*
 
 class ModelProvider(out: FabricDataOutput) : FabricModelProvider(out) {
   override fun generateBlockStateModels(gen: BlockStateModelGenerator) {
-    gen.registerSimpleCubeAll(REDSTONE_INTEGRATOR)
-
     registerManipulator(gen, MANIPULATOR_MARK_1, 1)
     registerManipulator(gen, MANIPULATOR_MARK_2, 2)
   }
