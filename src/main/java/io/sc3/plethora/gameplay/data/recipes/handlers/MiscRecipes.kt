@@ -77,18 +77,6 @@ object MiscRecipes : RecipeHandler {
       .input('P', ModRegistry.Items.POCKET_COMPUTER_ADVANCED.get())
       .hasComputer()
       .offerTo(exporter, NeuralInterfaceRecipe.Serializer)
-
-    // Redstone Integrator
-    ShapedRecipeJsonBuilder
-      .create(RecipeCategory.MISC, ModItems.REDSTONE_INTEGRATOR)
-      .pattern("SRS")
-      .pattern("RCR")
-      .pattern("SRS")
-      .input('S', Items.STONE)
-      .input('C', ModRegistry.Items.CABLE.get())
-      .input('R', ConventionalItemTags.REDSTONE_DUSTS)
-      .hasComputer()
-      .offerTo(exporter)
   }
 
   private val computerCriteria = lazy {
