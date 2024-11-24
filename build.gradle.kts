@@ -265,13 +265,13 @@ publishing {
 
   repositories {
     maven {
-      name = "lemmmyRepo"
-      url = uri("https://repo.lem.sh/releases")
+      name = "reconnectedRepo"
+      url = uri("https://maven.reconnected.cc/releases")
 
-      if (!System.getenv("MAVEN_USERNAME").isNullOrEmpty()) {
+      if (!System.getenv("MAVEN_USERNAME_RCC").isNullOrEmpty()) {
         credentials {
-          username = System.getenv("MAVEN_USERNAME")
-          password = System.getenv("MAVEN_PASSWORD")
+          username = System.getenv("MAVEN_USERNAME_RCC")
+          password = System.getenv("MAVEN_PASSWORD_RCC")
         }
       } else {
         credentials(PasswordCredentials::class)
