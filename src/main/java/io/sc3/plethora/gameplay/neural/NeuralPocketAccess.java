@@ -21,45 +21,54 @@ import java.util.Map;
  * Proxy IPocketAccess for neural interfaces.
  */
 public class NeuralPocketAccess implements IPocketAccess {
-    private final NeuralComputer neural;
+  private final NeuralComputer neural;
 
-    public NeuralPocketAccess(NeuralComputer neural) {
+  public NeuralPocketAccess(NeuralComputer neural) {
         this.neural = neural;
     }
 
+  @Nullable
   @Override
   public ServerWorld getLevel() {
-      //Do I think this works? Nah
-    return (ServerWorld) getEntity().getEntityWorld();
-  }
-
-  @Override
-  public Vec3d getPosition() {
-    return getEntity().getPos();
+    Entity entity = getEntity();
+    if (entity == null) {
+      return null;
+    }
+    return (ServerWorld) entity.getEntityWorld();
   }
 
   @Nullable
-    @Override
-    public Entity getEntity() {
-        WeakReference<LivingEntity> ref = neural.getEntity();
-        return ref != null ? ref.get() : null;
+  @Override
+  public Vec3d getPosition() {
+    Entity entity = getEntity();
+    if (entity == null) {
+      return null;
     }
+    return entity.getPos();
+  }
 
-    @Override
-    public int getColour() {
+  @Nullable
+  @Override
+  public Entity getEntity() {
+    WeakReference<LivingEntity> ref = neural.getEntity();
+    return ref != null ? ref.get() : null;
+  }
+
+  @Override
+  public int getColour() {
         return -1;
     }
 
-    @Override
-    public void setColour(int colour) {}
+  @Override
+  public void setColour(int colour) {}
 
-    @Override
-    public int getLight() {
+  @Override
+  public int getLight() {
         return -1;
     }
 
-    @Override
-    public void setLight(int colour) {}
+  @Override
+  public void setLight(int colour) {}
 
   @org.jetbrains.annotations.Nullable
   @Override
@@ -68,30 +77,24 @@ public class NeuralPocketAccess implements IPocketAccess {
   }
 
   @Override
-  public void setUpgrade(@org.jetbrains.annotations.Nullable UpgradeData<IPocketUpgrade> upgrade) {
-
-  }
+  public void setUpgrade(@org.jetbrains.annotations.Nullable UpgradeData<IPocketUpgrade> upgrade) {}
 
   @Nonnull
-    @Override
-    public NbtCompound getUpgradeNBTData() {
+  @Override
+  public NbtCompound getUpgradeNBTData() {
         return new NbtCompound(); // TODO: Necessary to do anything with this?
     }
 
-    @Override
-    public void updateUpgradeNBTData() {
+  @Override
+  public void updateUpgradeNBTData() {}
 
-    }
+  @Override
+  public void invalidatePeripheral() {}
 
-    @Override
-    public void invalidatePeripheral() {
-
-    }
-
-    @Override
-    @SuppressWarnings({"removal"})
-    //TODO: Remove this when IPocketAccess is updated, there's nothing relying on it. Trust me bro.
-    public Map<Identifier, IPeripheral> getUpgrades() {
+  @Override
+  @SuppressWarnings({"removal"})
+  //TODO: Remove this when IPocketAccess is updated, there's nothing relying on it. Trust me bro.
+  public Map<Identifier, IPeripheral> getUpgrades() {
       return Collections.emptyMap();
     }
 }

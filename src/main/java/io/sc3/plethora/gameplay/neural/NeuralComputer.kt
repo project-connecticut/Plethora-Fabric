@@ -4,7 +4,6 @@ import dan200.computercraft.core.computer.ComputerSide
 import dan200.computercraft.impl.PocketUpgrades
 import dan200.computercraft.shared.computer.core.ComputerFamily.ADVANCED
 import dan200.computercraft.shared.computer.core.ServerComputer
-import dan200.computercraft.shared.util.ComponentMap
 import io.sc3.plethora.Plethora
 import io.sc3.plethora.core.executor.TaskRunner
 import io.sc3.plethora.gameplay.neural.NeuralComputerHandler.HEIGHT
@@ -25,10 +24,8 @@ import javax.annotation.Nonnull
 class NeuralComputer(
   world: ServerWorld,
   pos: BlockPos,
-  computerId: Int,
-  label: String?,
-  baseComponents: ComponentMap?
-) : ServerComputer(world, pos, computerId, label, ADVANCED, WIDTH, HEIGHT, baseComponents) {
+  properties: Properties?,
+) : ServerComputer(world, pos, properties) {
   var entity: WeakReference<LivingEntity>? = null
     private set
 

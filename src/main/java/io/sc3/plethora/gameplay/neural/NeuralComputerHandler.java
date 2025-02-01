@@ -1,10 +1,10 @@
 package io.sc3.plethora.gameplay.neural;
 
 import dan200.computercraft.api.ComputerCraftAPI;
+import dan200.computercraft.shared.computer.core.ComputerFamily;
 import dan200.computercraft.shared.computer.core.ServerComputer;
 import dan200.computercraft.shared.computer.core.ServerComputerRegistry;
 import dan200.computercraft.shared.computer.core.ServerContext;
-import dan200.computercraft.shared.util.ComponentMap;
 import dan200.computercraft.shared.util.IDAssigner;
 import dev.emi.trinkets.api.SlotReference;
 import net.minecraft.entity.LivingEntity;
@@ -56,7 +56,10 @@ public class NeuralComputerHandler {
 
             String label = stack.hasCustomName() ? stack.getName().getString() : null;
             //TODO: Create Component for NeuralComputer mayhaps
-            neural = new NeuralComputer((ServerWorld)owner.getEntityWorld(), owner.getBlockPos(), computerId, label, ComponentMap.empty());
+            var neuralProperties = ServerComputer.properties(computerId, ComputerFamily.ADVANCED);
+            neuralProperties.terminalSize(WIDTH, HEIGHT);
+            neuralProperties.label(label);
+            neural = new NeuralComputer((ServerWorld)owner.getEntityWorld(), owner.getBlockPos(), neuralProperties);
             neural.readModuleData(nbt.getCompound(MODULE_DATA));
 
             nbt.putInt(SESSION_ID, sessionId);
