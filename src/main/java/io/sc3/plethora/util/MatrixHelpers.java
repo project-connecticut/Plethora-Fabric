@@ -15,13 +15,9 @@ public final class MatrixHelpers {
 	static {
 		FACINGS = new Matrix4f[Direction.values().length];
 		for (Direction facing : Direction.values()) {
-			int x = 0, y = 0;
+			int x,y;
 			switch (facing) {
-				case DOWN -> {
-					x = 0;
-					y = 0;
-				}
-				case UP -> {
+        case UP -> {
 					x = 180;
 					y = 0;
 				}
@@ -41,7 +37,12 @@ public final class MatrixHelpers {
 					x = 90;
 					y = 0;
 				}
-			}
+        default -> {
+          // DOWN
+          x = 0;
+          y = 0;
+        }
+      }
 
 			Matrix4f result = new Matrix4f();
 			result.translation(0.5f, 0.5f, 0.5f);

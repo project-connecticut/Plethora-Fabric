@@ -14,6 +14,8 @@ import net.minecraft.server.world.ServerWorld;
 
 import javax.annotation.Nonnull;
 
+import java.util.Objects;
+
 import static io.sc3.plethora.Plethora.log;
 
 /**
@@ -36,7 +38,7 @@ public class NeuralComputerHandler {
     public static NeuralComputer getServer(@Nonnull ItemStack stack, LivingEntity owner, @Nonnull SlotReference slot) {
         NbtCompound nbt = stack.getOrCreateNbt();
 
-        final ServerComputerRegistry manager = ServerContext.get(owner.getServer()).registry();
+        final ServerComputerRegistry manager = ServerContext.get(Objects.requireNonNull(owner.getServer())).registry();
         final int sessionId = manager.getSessionID();
 
         NeuralComputer neural = null;
@@ -77,7 +79,7 @@ public class NeuralComputerHandler {
         NbtCompound nbt = stack.getNbt();
         if(nbt == null || !nbt.contains(SESSION_ID) || !nbt.containsUuid(INSTANCE_ID)) return null;
 
-        final ServerComputerRegistry manager = ServerContext.get(player.getServer()).registry();
+        final ServerComputerRegistry manager = ServerContext.get(Objects.requireNonNull(player.getServer())).registry();
         var computer = manager.get(nbt.getInt(SESSION_ID), nbt.getUuid(INSTANCE_ID));
         if(computer == null) {
             return null;

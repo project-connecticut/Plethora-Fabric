@@ -199,7 +199,7 @@ public class NeuralHelpers {
         @Nonnull
         @Override
         public NbtCompound getData() {
-            return computer.getModuleData(module);
+            return Objects.requireNonNull(computer.getModuleData(module));
         }
 
         @Nonnull

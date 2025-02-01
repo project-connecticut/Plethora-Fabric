@@ -50,6 +50,7 @@ class ManipulatorBlock(settings: Settings?, val type: ManipulatorType) : BaseBlo
     }
   }
 
+  @Deprecated("Deprecated in Java")
   override fun getOutlineShape(state: BlockState, world: BlockView, pos: BlockPos, context: ShapeContext) =
     when (state.get(FACING)) {
       Direction.DOWN  -> DOWN_SHAPE

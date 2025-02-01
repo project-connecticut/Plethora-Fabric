@@ -141,5 +141,6 @@ public class MethodWrapperPeripheral extends MethodWrapper implements IDynamicPe
     if (!getType().equals(other.getType())) return false;
 
     return owner == otherP.owner && equalMethods(otherP);
+    //FIXME: This makes it so that modules without methods are considered equal, which is not the case
   }
 }

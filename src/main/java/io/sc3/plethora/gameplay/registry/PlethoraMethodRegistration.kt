@@ -16,6 +16,7 @@ import io.sc3.plethora.gameplay.modules.glasses.objects.object2d.Positionable2d
 import io.sc3.plethora.gameplay.modules.glasses.objects.object2d.Rectangle2d
 import io.sc3.plethora.gameplay.modules.glasses.objects.object3d.*
 import io.sc3.plethora.gameplay.modules.introspection.IntrospectionMethods
+import io.sc3.plethora.gameplay.modules.keyboard.KeyboardMethods
 import io.sc3.plethora.gameplay.modules.kinetic.KineticMethods
 import io.sc3.plethora.gameplay.modules.laser.LaserMethods
 import io.sc3.plethora.gameplay.modules.scanner.ScannerMethods
@@ -44,6 +45,7 @@ internal object PlethoraMethodRegistration {
       moduleMethod("sensor:getMetaByName", SensorMethods.GET_META_BY_NAME)
       moduleMethod("scanner:sense", ScannerMethods.SCAN)
       moduleMethod("scanner:getBlockMeta", ScannerMethods.GET_BLOCK_META)
+      moduleMethod("keyboard:isKeyboard", KeyboardMethods.EXAMPLE) //FIXME: Remove when methodwrapper equals is fixed
 
       // Overlay glasses
       moduleMethod("glasses:canvas", GlassesMethods.GET_CANVAS)
